@@ -16,6 +16,9 @@ window.onload = function(){
     
     init();
     
+/**
+ * Fonction permettant de définir le canvas et de l'afficher en HTML
+ */
     function init(){
         canvas.width = canvasWidth;
         canvas.height = canvasHeight;
@@ -27,6 +30,9 @@ window.onload = function(){
         launch();
     }
 
+/**
+ * Fonction permettant de lancer le jeu et de définir la position des élements
+ */
     function launch(){
         snakee = new Snake([[6,4],[5,4],[4,4],[3,4],[2,4]],"right");
         applee = new Apple([10,10]);
@@ -35,7 +41,10 @@ window.onload = function(){
         delay = 100;
         refreshCanvas();
     }
-    
+
+/**
+ * Fonction permettant de rafraichir le canvas lors de certaines actions
+ */
     function refreshCanvas(){
         snakee.advance();
         if (snakee.checkCollision()){
@@ -60,11 +69,17 @@ window.onload = function(){
             timeOut = setTimeout(refreshCanvas,delay);
          }
     }
-    
+
+/**
+ * Fonction permettant d'augmenter la vitesse par tranche de 5
+ */
     function speedUp(){
         delay /= 2;
     }
-    
+
+/**
+ * Fonction permettant d'afficher la fin de partie et d'orienter le user
+ */
     function gameOver(){
         ctx.save();
         ctx.font = "bold 70px sans-serif";
@@ -80,7 +95,10 @@ window.onload = function(){
         ctx.fillText("Appuyer sur la touche Espace pour rejouer", centreX, centreY - 120);
         ctx.restore();
     }
-    
+
+/**
+* Fonction permettant d'afficher le score en temps réel
+*/
     function drawScore(){
         ctx.save();
         ctx.font = "bold 200px sans-serif";
@@ -91,17 +109,26 @@ window.onload = function(){
         ctx.restore();
     }
     
+/**
+ * Fonction permettant de définir la position des blocks
+ */
     function drawBlock(ctx, position){
         const x = position[0]*blockSize;
         const y = position[1]*blockSize;
         ctx.fillRect(x,y,blockSize,blockSize);
     }
-    
+
+/**
+ * Fonction permettant de définir le serpent
+ */
     function Snake(body, direction){
         this.body = body;
         this.direction = direction;
         this.ateApple = false;
-        
+
+/**
+ * Fonction permettant de définir sa couleur et longueur de son corps
+ */
         this.draw = function(){
             ctx.save();
             ctx.fillStyle="white";
@@ -110,7 +137,10 @@ window.onload = function(){
             }
             ctx.restore();
         };
-        
+
+/**
+ * Fonction permettant l'orientation des blocks du serpent
+ */
         this.advance = function(){
             const nextPosition = this.body[0].slice();
             switch(this.direction){
@@ -135,7 +165,10 @@ window.onload = function(){
             else
                 this.ateApple = false;
         };
-        
+
+/**
+ * Fonction permettant de donner une direction au serpent
+ */       
         this.setDirection = function(newDirection){
             let allowedDirections;
             switch(this.direction){
@@ -154,7 +187,10 @@ window.onload = function(){
                 this.direction = newDirection;
             }
         };
-        
+ 
+/**
+ * Fonction permettant de définir les collisions
+ */
         this.checkCollision = function(){
             let wallCollision = false;
             let snakeCollision = false;
@@ -179,7 +215,10 @@ window.onload = function(){
             
             return wallCollision || snakeCollision;        
         };
-        
+
+/**
+ * Fonction permettant de définir si le serpent a mangé une pomme ou non
+ */
         this.isEatingApple = function(appleToEat){
             const head = this.body[0];
             if (head[0] === appleToEat.position[0] && head[1] === appleToEat.position[1])
@@ -189,7 +228,10 @@ window.onload = function(){
         }
         
     }
-    
+
+/**
+ * Fonction permettant de créer et de fixer une position de départ à la pomme
+ */
     function Apple(position){
         this.position = position;
         
@@ -204,13 +246,19 @@ window.onload = function(){
           ctx.fill();
           ctx.restore();
         };
-        
+
+/**
+ * Fonction permettant de définir une nouvelle position une fois mangée
+ */
         this.setNewPosition = function(){
             const newX = Math.round(Math.random()*(widthInBlocks-1));
             const newY = Math.round(Math.random()*(heightInBlocks-1));
             this.position = [newX,newY];
         }; 
-        
+
+/**
+ * Fonction permettant d'éviter que la pomme apparaisse sur le serpent
+ */
         this.isOnSnake = function(snakeToCheck){
             let isOnSnake = false;
             for (let i=0 ; i < snakeToCheck.body.length ; i++){
@@ -222,7 +270,10 @@ window.onload = function(){
         };
 
     }
-    
+
+/**
+ * Fonction permettant les touches du clavier
+ */
     document.onkeydown = function handleKeyDown(e){
         const key = e.keyCode;
         let newDirection;
