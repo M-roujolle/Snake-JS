@@ -100,4 +100,16 @@ window.onload = function() {
         delay = 100;
         refreshCanvas();
     }
+
+    function drawScore(){
+        ctx.save();
+        ctx.front = "bold 200px sans-serif";
+        ctx.fillStyle = "white";
+        ctx.textAlign = "center";
+        ctx.baseline = "middle";
+        let centerX = canvasWidth / 2;
+        let centerY = canvasHeight / 2;
+        ctx.fillText(score.toString(), centerX, centerY);
+        ctx.restore();
+    }
 }
