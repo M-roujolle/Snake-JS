@@ -86,8 +86,8 @@ window.onload = function(){
         ctx.fillStyle = "black";
         ctx.textAlign = "center";
         ctx.textBaseline = "middle";
-        ctx.strokeStyle = "grey";
-        ctx.lineWidth = 4;
+        ctx.strokeStyle = "#7AF809";
+        ctx.lineWidth = 7;
         ctx.strokeText("Game Over", centreX, centreY - 180);
         ctx.fillText("Game Over", centreX, centreY - 180);
         ctx.font = "bold 30px sans-serif";
@@ -131,7 +131,7 @@ window.onload = function(){
  */
         this.draw = function(){
             ctx.save();
-            ctx.fillStyle="white";
+            ctx.fillStyle="#7AF809";
             for (let i=0 ; i < this.body.length ; i++){
                 drawBlock(ctx,this.body[i]);
             }
@@ -240,7 +240,7 @@ window.onload = function(){
           const x = this.position[0]*blockSize + radius;
           const y = this.position[1]*blockSize + radius;
           ctx.save();
-          ctx.fillStyle = "green";
+          ctx.fillStyle = "#7AF809";
           ctx.beginPath();
           ctx.arc(x, y, radius, 0, Math.PI*2, true);
           ctx.fill();
