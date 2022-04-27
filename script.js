@@ -91,4 +91,13 @@ window.onload = function() {
         ctx.fillText("Appuyer sur la touche Espace pour rejouer", centerX, centerY - 120);
         ctx.restore();
     }
+
+    function restart(){
+        snakee = new Snake([[6,4],[5,4],[4,4],[3,4],[2,4]],"right");
+        applee = new Apple([10,10]);
+        score = 0; 
+        clearTimeout(timeOut);
+        delay = 100;
+        refreshCanvas();
+    }
 }
