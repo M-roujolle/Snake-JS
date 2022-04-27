@@ -112,4 +112,50 @@ window.onload = function() {
         ctx.fillText(score.toString(), centerX, centerY);
         ctx.restore();
     }
+
+    function drawBlock(ctx, position){
+        var x = position[0]*blockSize;
+        var y = position[1]*blockSize;
+        ctx.fillRect(x,y,blockSize,blockSize);
+    }
+
+    function Snake(body,direction){
+        this.body = body;
+        this.direction = direction;
+        this.ateApple = false;
+
+        this.draw = function(){
+            ctx.save();
+            ctx.fillStyle = "#fff0000";
+            for(var i=0 ; i < this.body.length ; i++){
+                drawBlock(ctx,this.body[i]);
+            }
+            ctx.restore();
+        };
+
+        this.advance = function() {
+            var nextPosition = this.body[0].slice();
+            switch(this.position){
+                case "left":
+                    nextPosition[0] -= 1;
+                    break;
+                case "right":
+                    nextPosition[0] += 1;
+                    break;
+                case "down":
+                    nextPosition[0] += 1;
+                    break;
+                case "up":
+                    nextPosition[0] -= 1;
+                    break;
+                default:
+                    throw("invalid direction");
+            }
+            this.body.unshift(nextPosition);
+            if(!this.ateApple)
+                this.body.pop();
+            else
+                this.ateApple = false;
+        };
+    }
 }
